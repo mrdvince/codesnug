@@ -1,2 +1,2 @@
-# coderust
-Collection of LeetCode questions to ace the coding interview! - Created using [LeetHub](https://github.com/QasimWani/LeetHub)
+# codesnug
+Collection of LeetCode questions in Rust
