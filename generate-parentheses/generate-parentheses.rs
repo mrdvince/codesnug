@@ -1,26 +1,26 @@
 impl Solution {
     pub fn generate_parenthesis(n: i32) -> Vec<String> {
-        fn generate(n: i32, left: i32, right: i32, s: &mut String, result: &mut Vec<String>) {
+        let mut result = Vec::new();
+        let mut stack = Vec::new();
+        stack.push((0, 0, String::new()));
+
+        while let Some((left, right, s)) = stack.pop() {
             if left == n && right == n {
-                result.push(s.clone());
+                result.push(s);
             } else {
                 if left < n {
-                    s.push('(');
-                    println!("{}, l<n, {left}, {n}",s);
-                    generate(n, left + 1, right, s, result);
-                    s.pop();
+                    let mut new_s = s.clone();
+                    new_s.push('(');
+                    stack.push((left + 1, right, new_s));
                 }
                 if right < left {
-                    s.push(')');
-                    println!("{}, r<l, {right}, {n}",s);
-                    generate(n, left, right + 1, s, result);
-                    s.pop();
+                    let mut new_s = s.clone();
+                    new_s.push(')');
+                    stack.push((left, right + 1, new_s));
                 }
             }
         }
-        let mut result = vec![];
-        let mut s = String::new();
-        generate(n, 0, 0, &mut s, &mut result);
+
         result
     }
 }
