@@ -4,23 +4,15 @@ impl Solution {
         if s.len() != t.len() {
             return false;
         }
-        // Create a collections counter equivalent
-        let mut counts = HashMap::new();
-
-        for ch in s.chars() {
+        let s_counts = s.chars().fold(HashMap::new(), |mut counts, ch| {
             *counts.entry(ch).or_insert(0) += 1;
-        }
+            counts
+        });
 
-        for ch in t.chars() {
-            if let Some(count) = counts.get_mut(&ch) {
-                *count -= 1;
-                if *count == 0 {
-                    counts.remove(&ch);
-                }
-            } else {
-                return false;
-            }
-        }
-        counts.is_empty()
+        let t_counts = t.chars().fold(HashMap::new(), |mut counts, ch| {
+            *counts.entry(ch).or_insert(0) += 1;
+            counts
+        });
+        s_counts == t_counts
     }
 }
