@@ -1,27 +1,24 @@
 struct MyQueue {
     input_stack: Vec<i32>,
-    output_stack: Vec<i32>
+    output_stack: Vec<i32>,
 }
-
 
 /** 
  * `&self` means the method takes an immutable reference.
  * If you need a mutable reference, change it to `&mut self` instead.
  */
 impl MyQueue {
-
     fn new() -> Self {
         MyQueue {
             input_stack: Vec::new(),
             output_stack: Vec::new(),
         }
     }
-    
+
     fn push(&mut self, x: i32) {
         self.input_stack.push(x);
-        
     }
-    
+
     fn pop(&mut self) -> i32 {
         if self.output_stack.is_empty() {
             while let Some(x) = self.input_stack.pop() {
@@ -30,7 +27,7 @@ impl MyQueue {
         }
         self.output_stack.pop().unwrap()
     }
-    
+
     fn peek(&mut self) -> i32 {
         if self.output_stack.is_empty() {
             while let Some(x) = self.input_stack.pop() {
@@ -40,12 +37,12 @@ impl MyQueue {
         // self.output_stack[self.output_stack.len() - 1]
         *self.output_stack.last().unwrap()
     }
-    
+
     fn empty(&self) -> bool {
         self.input_stack.is_empty() && self.output_stack.is_empty()
-        
     }
 }
+
 
 /**
  * Your MyQueue object will be instantiated and called as such:
