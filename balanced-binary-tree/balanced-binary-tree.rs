@@ -20,24 +20,26 @@ use std::rc::Rc;
 use std::cell::RefCell;
 impl Solution {
     pub fn is_balanced(root: Option<Rc<RefCell<TreeNode>>>) -> bool {
-        if let Some(node) = root {
-            let left_height = Self::height(node.borrow().left.clone());
-            let right_height = Self::height(node.borrow().right.clone());
-            if (left_height - right_height).abs() > 1 {
-                return false;
-            }
-            let left_side = Self::is_balanced(node.borrow().left.clone());
-            let right_side = Self::is_balanced(node.borrow().right.clone());
-            return left_side && right_side;
-        }
-        true
+        Self::is_balanced_helper(root.as_ref()).is_some()
     }
-    fn height(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+    
+    fn is_balanced_helper(root: Option<&Rc<RefCell<TreeNode>>>) -> Option<i32> {
         if let Some(node) = root {
-            let left_height = Self::height(node.borrow().left.clone());
-            let right_height = Self::height(node.borrow().right.clone());
-            return left_height.max(right_height) + 1;
+            let left_height = Self::is_balanced_helper(node.borrow().left.as_ref());
+            let right_height = Self::is_balanced_helper(node.borrow().right.as_ref());
+            
+            match (left_height, right_height) {
+                (Some(lh), Some(rh)) => {
+                    if (lh - rh).abs() <= 1 {
+                        Some(lh.max(rh) + 1)
+                    } else {
+                        None
+                    }
+                }
+                _ => None,
+            }
+        } else {
+            Some(0)
         }
-        0
     }
 }
