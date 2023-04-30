@@ -16,30 +16,32 @@
 //     }
 //   }
 // }
-use std::rc::Rc;
 use std::cell::RefCell;
+use std::rc::Rc;
 impl Solution {
     pub fn is_balanced(root: Option<Rc<RefCell<TreeNode>>>) -> bool {
+        if root.is_none() {
+            return true;
+        }
         Self::is_balanced_helper(root.as_ref()).is_some()
     }
-    
+
     fn is_balanced_helper(root: Option<&Rc<RefCell<TreeNode>>>) -> Option<i32> {
-        if let Some(node) = root {
-            let left_height = Self::is_balanced_helper(node.borrow().left.as_ref());
-            let right_height = Self::is_balanced_helper(node.borrow().right.as_ref());
-            
-            match (left_height, right_height) {
-                (Some(lh), Some(rh)) => {
-                    if (lh - rh).abs() <= 1 {
-                        Some(lh.max(rh) + 1)
-                    } else {
-                        None
-                    }
+        if root.is_none() {
+            return Some(0);
+        }
+        let left_height = Self::is_balanced_helper(root.as_ref().unwrap().borrow().left.as_ref());
+        let right_height = Self::is_balanced_helper(root.as_ref().unwrap().borrow().right.as_ref());
+
+        match (left_height, right_height) {
+            (Some(lh), Some(rh)) => {
+                if (lh - rh).abs() <= 1 {
+                    Some(lh.max(rh) + 1)
+                } else {
+                    None
                 }
-                _ => None,
             }
-        } else {
-            Some(0)
+            _ => None,
         }
     }
 }
