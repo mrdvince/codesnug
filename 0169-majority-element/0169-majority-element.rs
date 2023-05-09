@@ -1,17 +1,17 @@
 impl Solution {
     pub fn majority_element(nums: Vec<i32>) -> i32 {
-        let mut elements_counter = std::collections::HashMap::new();
-        for num in &nums {
-            *elements_counter.entry(num).or_insert(0) += 1;
-        }
-        let mut ans = 0;
-        let mut seen = 0;
-        for (&k, v) in elements_counter {
-            if v > nums.len() / 2 && v >= seen {
-                ans = k;
-                seen = v;
+        let mut m_element = 0;
+        let mut count = 0;
+        for num in nums {
+            if count == 0 {
+                m_element = num;
+                count = 1;
+            } else if m_element == num {
+                count += 1;
+            } else {
+                count -= 1;
             }
         }
-        ans
+        m_element
     }
 }
