@@ -16,16 +16,19 @@
 // }
 impl Solution {
     pub fn middle_node(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-        if head.is_none() || head.as_ref().unwrap().next.is_none() {
-            return head;
-        }
-        let mut slow = head.clone();
+        
         let mut fast = head.clone();
+        let mut slow = head;
 
-        while fast.is_some() && fast.as_ref().unwrap().next.is_some() {
-            slow = slow.unwrap().next;
-            fast = fast.unwrap().next.unwrap().next;
+        while let Some(node) = fast {
+            fast = node.next.clone();
+            if let Some(_) = fast {
+                slow = slow.unwrap().next;
+                fast = fast.unwrap().next;
+            }
         }
+
         slow
     }
 }
+
