@@ -1,1 +1,1 @@
-​
+time complexity of the solution is O(N), where N is the number of nodes in the binary tree.
