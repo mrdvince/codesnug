@@ -18,17 +18,17 @@
 // }
 use std::cell::RefCell;
 use std::rc::Rc;
+
 impl Solution {
     pub fn max_depth(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
-        Self::depth(&root)
-    }
-    fn depth(root: &Option<Rc<RefCell<TreeNode>>>) -> i32 {
-        let mut depth = 0;
-        if let Some(node) = root {
-            let left_depth = Self::depth(&node.borrow().left);
-            let right_depth = Self::depth(&node.borrow().right);
-            depth = 1 + left_depth.max(right_depth)
+        match root {
+            Some(node) => {
+                let left_depth = Solution::max_depth(node.borrow().left.clone());
+                let right_depth = Solution::max_depth(node.borrow().right.clone());
+                1 + left_depth.max(right_depth)
+            }
+            None => 0,
         }
-        depth
     }
 }
+
