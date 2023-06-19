@@ -1,7 +1,7 @@
 impl Solution {
     pub fn three_sum(mut nums: Vec<i32>) -> Vec<Vec<i32>> {
         let mut result: Vec<Vec<i32>> = Vec::new();
-        nums.sort();
+        nums.sort_unstable();
         for (idx, num) in nums.iter().enumerate() {
             if idx > 0 && num == &nums[idx - 1] {
                 continue;
