@@ -6,11 +6,9 @@ impl Solution {
         
         for i in 1..nums.len() {
             let curr = nums[i];
-            let max_product = max_so_far * curr;
-            let min_product = min_so_far * curr;
             let temp_max = max_so_far;
-            max_so_far = std::cmp::max(std::cmp::max(max_product, min_product), curr);
-            min_so_far = std::cmp::min(std::cmp::min(max_product, min_product), curr);
+            max_so_far = std::cmp::max(std::cmp::max(max_so_far * curr, min_so_far * curr), curr);
+            min_so_far = std::cmp::min(std::cmp::min(temp_max * curr, min_so_far * curr), curr);
             if max_so_far > result {
                 result = max_so_far;
             }
