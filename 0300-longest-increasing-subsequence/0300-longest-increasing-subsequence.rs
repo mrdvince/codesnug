@@ -1,16 +1,20 @@
 impl Solution {
     pub fn length_of_lis(nums: Vec<i32>) -> i32 {
-        let n = nums.len();
-        let mut lengths = vec![1; n];
+        let mut tails = vec![];
         
-        for i in 1..n {
-            for j in 0..i {
-                if nums[i] > nums[j] {
-                    lengths[i] = lengths[i].max(lengths[j] + 1);
+        for num in nums {
+            match tails.binary_search(&num) {
+                Ok(i) => tails[i] = num,
+                Err(i) => {
+                    if i == tails.len() {
+                        tails.push(num);
+                    } else {
+                        tails[i] = num;
+                    }
                 }
             }
         }
         
-        *lengths.iter().max().unwrap()
+        tails.len() as i32
     }
 }
