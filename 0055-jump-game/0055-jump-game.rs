@@ -17,6 +17,7 @@
 //     }
 // }
 
+// Greedy
 impl Solution {
     pub fn can_jump(nums: Vec<i32>) -> bool {
         let mut reachable = 0;
@@ -25,6 +26,9 @@ impl Solution {
                 return false;
             }
             reachable = reachable.max(i + nums[i] as usize);
+            if reachable >= nums.len() - 1 {
+                return true;
+            }
         }
         true
     }
