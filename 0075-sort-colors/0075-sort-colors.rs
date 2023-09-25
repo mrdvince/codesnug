@@ -3,7 +3,8 @@ impl Solution {
         if nums.is_empty() {
             return;
         }
-        let (mut left, mut right) = (0, nums.len() - 1);
+        let mut left = 0;
+        let mut right = nums.len() - 1;
         let mut i = 0;
 
         while i <= right {
