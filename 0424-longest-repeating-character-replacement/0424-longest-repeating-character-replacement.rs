@@ -7,14 +7,12 @@ impl Solution {
 
         for right in 0..s.len() {
             count.entry(s[right]).and_modify(|c| *c += 1).or_insert(1);
-            let curr_dist = (right - left + 1) as i32;
-            if curr_dist - *count.values().max().unwrap() > k {
+            if (right - left + 1) as i32 - *count.values().max().unwrap() > k {
                 count.entry(s[left]).and_modify(|c| *c -= 1);
                 left += 1
-            } else {
-                res = res.max(curr_dist);
             }
+            res = res.max(right - left + 1);
         }
-        res
+        res as i32
     }
 }
